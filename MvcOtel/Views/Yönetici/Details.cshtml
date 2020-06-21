@@ -1,0 +1,66 @@
+﻿@model MvcOtel.Models.TblYönetici
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TblYönetici</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.YAd)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.YAd)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.YSoyad)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.YSoyad)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.YTcNo)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.YTcNo)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.YSifre)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.YSifre)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TblOtel.OtelAd)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TblOtel.OtelAd)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.YId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

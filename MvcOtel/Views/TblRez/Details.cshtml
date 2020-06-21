@@ -1,0 +1,66 @@
+﻿@model MvcOtel.Models.TblRez
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>TblRez</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.RezTarih)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RezTarih)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RezGün)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RezGün)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TblKullanici.KAd)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TblKullanici.KAd)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TblOda.OdaTür)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TblOda.OdaTür)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TblOtel.OtelAd)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TblOtel.OtelAd)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.RezId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

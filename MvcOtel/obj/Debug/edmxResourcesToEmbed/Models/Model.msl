@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MvcOtelModelStoreContainer" CdmEntityContainer="MvcOtelEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="MvcOtelModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblAdmins">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblAdmin">
+        <MappingFragment StoreEntitySet="TblAdmin">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="AdminAdi" ColumnName="AdminAdi" />
+          <ScalarProperty Name="AdminSifre" ColumnName="AdminSifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblKullanicis">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblKullanici">
+        <MappingFragment StoreEntitySet="TblKullanici">
+          <ScalarProperty Name="KId" ColumnName="KId" />
+          <ScalarProperty Name="KAd" ColumnName="KAd" />
+          <ScalarProperty Name="KSoyad" ColumnName="KSoyad" />
+          <ScalarProperty Name="KYas" ColumnName="KYas" />
+          <ScalarProperty Name="KTcNo" ColumnName="KTcNo" />
+          <ScalarProperty Name="KSifre" ColumnName="KSifre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblOdas">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblOda">
+        <MappingFragment StoreEntitySet="TblOda">
+          <ScalarProperty Name="OdaId" ColumnName="OdaId" />
+          <ScalarProperty Name="OdaTür" ColumnName="OdaTür" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblOtels">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblOtel">
+        <MappingFragment StoreEntitySet="TblOtel">
+          <ScalarProperty Name="OtelId" ColumnName="OtelId" />
+          <ScalarProperty Name="OtelAd" ColumnName="OtelAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblRezs">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblRez">
+        <MappingFragment StoreEntitySet="TblRez">
+          <ScalarProperty Name="RezId" ColumnName="RezId" />
+          <ScalarProperty Name="KId" ColumnName="KId" />
+          <ScalarProperty Name="OtelId" ColumnName="OtelId" />
+          <ScalarProperty Name="OdaId" ColumnName="OdaId" />
+          <ScalarProperty Name="RezTarih" ColumnName="RezTarih" />
+          <ScalarProperty Name="RezGün" ColumnName="RezGün" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TblYönetici">
+      <EntityTypeMapping TypeName="MvcOtelModel.TblYönetici">
+        <MappingFragment StoreEntitySet="TblYönetici">
+          <ScalarProperty Name="YId" ColumnName="YId" />
+          <ScalarProperty Name="YAd" ColumnName="YAd" />
+          <ScalarProperty Name="YSoyad" ColumnName="YSoyad" />
+          <ScalarProperty Name="YTcNo" ColumnName="YTcNo" />
+          <ScalarProperty Name="YSifre" ColumnName="YSifre" />
+          <ScalarProperty Name="OtelId" ColumnName="OtelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="MvcOtelModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="MvcOtelModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="MvcOtelModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="MvcOtelModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MvcOtelModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="MvcOtelModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="MvcOtelModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MvcOtelModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MvcOtelModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

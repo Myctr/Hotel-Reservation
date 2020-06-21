@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MvcOtel.Models.TblKullanici>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KSoyad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KYas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KTcNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KSifre)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.KAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KSoyad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KYas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KTcNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KSifre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.KId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.KId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.KId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

@@ -1,0 +1,115 @@
+﻿@model MvcOtel.Models.TblKullanici
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <title>Kullanıcı Kayıt Ol</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="limiter">
+            <div class="container-login100">
+                <div class="wrap-login100 p-t-85 p-b-20">
+                    <form class="login100-form validate-form">
+                        <span class="login100-form-title p-b-70">
+                            Kullanıcı Kayıt
+                        </span>
+                        <span class="login100-form-avatar">
+                            <img src="~/images/user.png" alt="AVATAR">
+                        </span>
+
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter username">
+                            @Html.EditorFor(model => model.KAd, new { htmlAttributes = new { @class = "input100" , placeholder = "Adınız" }  })
+                            @Html.ValidationMessageFor(model => model.KAd, "", new { @class = "text-danger" })
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter username">
+                            @Html.EditorFor(model => model.KSoyad, new { htmlAttributes = new { @class = "input100", placeholder = "Soyadınız" } })
+                            @Html.ValidationMessageFor(model => model.KSoyad, "", new { @class = "text-danger" })
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter username">
+                            @Html.EditorFor(model => model.KYas, new { htmlAttributes = new { @class = "input100", placeholder = "Yaşınız" } })
+                            @Html.ValidationMessageFor(model => model.KYas, "", new { @class = "text-danger" })
+                            <span class="focus-input100"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter username">
+                            @Html.EditorFor(model => model.KTcNo, new { htmlAttributes = new { @class = "input100", placeholder = "Tc Kimlik Numaranız" } })
+                            @Html.ValidationMessageFor(model => model.KTcNo, "", new { @class = "text-danger" })
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input m-b-50" data-validate="Enter password">
+                            @Html.EditorFor(model => model.KSifre, new { htmlAttributes = new { @class = "input100", type = "password", placeholder = "Şifreniz" } })
+                            @Html.ValidationMessageFor(model => model.KSifre, "", new { @class = "text-danger" })
+                            <span class="focus-input100"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn">
+                            <input type="submit" value="Kayıt Ol" class="login100-form-btn" />
+                        </div>
+
+                        <ul class="login-more p-t-190">
+                            <li class="m-b-8">
+                                <span class="txt1">
+                                    Otel Yöneticisi misiniz?
+                                </span>
+
+                                @Html.ActionLink("Giriş Yap", "YöneticiGiris", "Yönetici","Yönetici", new { @class = "txt2" })
+                            </li>
+                            <li>
+                                @Html.ActionLink("Giriş Sayfasına Gitmek İçin Tıklayınız!", "KullaniciGiris", "Kullanici", new { @class = "txt2" })
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+    <script src="~/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MvcOtel.Models.TblYönetici>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.YAd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YSoyad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YTcNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YSifre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TblOtel.OtelAd)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YAd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YSoyad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YTcNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YSifre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TblOtel.OtelAd)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.YId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.YId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.YId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

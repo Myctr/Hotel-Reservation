@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcOtelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TblAdmin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminAdi" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="AdminSifre" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblKullanici">
+    <Key>
+      <PropertyRef Name="KId" />
+    </Key>
+    <Property Name="KId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KAd" Type="nvarchar" MaxLength="16" />
+    <Property Name="KSoyad" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="KYas" Type="smallint" />
+    <Property Name="KTcNo" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="KSifre" Type="varchar" MaxLength="16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblOda">
+    <Key>
+      <PropertyRef Name="OdaId" />
+    </Key>
+    <Property Name="OdaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OdaTür" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblOtel">
+    <Key>
+      <PropertyRef Name="OtelId" />
+    </Key>
+    <Property Name="OtelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OtelAd" Type="nvarchar" MaxLength="16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblRez">
+    <Key>
+      <PropertyRef Name="RezId" />
+    </Key>
+    <Property Name="RezId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KId" Type="int" Nullable="false" />
+    <Property Name="OtelId" Type="int" Nullable="false" />
+    <Property Name="OdaId" Type="int" Nullable="false" />
+    <Property Name="RezTarih" Type="smalldatetime" Nullable="false" />
+    <Property Name="RezGün" Type="smallint" />
+  </EntityType>
+  <EntityType Name="TblYönetici">
+    <Key>
+      <PropertyRef Name="YId" />
+    </Key>
+    <Property Name="YId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YAd" Type="nvarchar" MaxLength="15" />
+    <Property Name="YSoyad" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="YTcNo" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="YSifre" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="OtelId" Type="int" />
+  </EntityType>
+  <Association Name="KullaniciveRezervasyon">
+    <End Role="TblKullanici" Type="Self.TblKullanici" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblKullanici">
+        <PropertyRef Name="KId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="KId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OtelveRezervasyon">
+    <End Role="TblOtel" Type="Self.TblOtel" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOtel">
+        <PropertyRef Name="OtelId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="OtelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RezervasyonveOda">
+    <End Role="TblOda" Type="Self.TblOda" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOda">
+        <PropertyRef Name="OdaId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="OdaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="YöneticiveOtel">
+    <End Role="TblOtel" Type="Self.TblOtel" Multiplicity="0..1" />
+    <End Role="TblYönetici" Type="Self.TblYönetici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOtel">
+        <PropertyRef Name="OtelId" />
+      </Principal>
+      <Dependent Role="TblYönetici">
+        <PropertyRef Name="OtelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="MvcOtelModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblAdmin" EntityType="Self.TblAdmin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblKullanici" EntityType="Self.TblKullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblOda" EntityType="Self.TblOda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblOtel" EntityType="Self.TblOtel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblRez" EntityType="Self.TblRez" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblYönetici" EntityType="Self.TblYönetici" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="KullaniciveRezervasyon" Association="Self.KullaniciveRezervasyon">
+      <End Role="TblKullanici" EntitySet="TblKullanici" />
+      <End Role="TblRez" EntitySet="TblRez" />
+    </AssociationSet>
+    <AssociationSet Name="OtelveRezervasyon" Association="Self.OtelveRezervasyon">
+      <End Role="TblOtel" EntitySet="TblOtel" />
+      <End Role="TblRez" EntitySet="TblRez" />
+    </AssociationSet>
+    <AssociationSet Name="RezervasyonveOda" Association="Self.RezervasyonveOda">
+      <End Role="TblOda" EntitySet="TblOda" />
+      <End Role="TblRez" EntitySet="TblRez" />
+    </AssociationSet>
+    <AssociationSet Name="YöneticiveOtel" Association="Self.YöneticiveOtel">
+      <End Role="TblOtel" EntitySet="TblOtel" />
+      <End Role="TblYönetici" EntitySet="TblYönetici" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

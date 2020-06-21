@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcOtelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TblAdmin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminAdi" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="AdminSifre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TblKullanici">
+    <Key>
+      <PropertyRef Name="KId" />
+    </Key>
+    <Property Name="KId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KAd" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+    <Property Name="KSoyad" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="KYas" Type="Int16" />
+    <Property Name="KTcNo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="KSifre" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TblRezs" Relationship="Self.KullaniciveRezervasyon" FromRole="TblKullanici" ToRole="TblRez" />
+  </EntityType>
+  <EntityType Name="TblOda">
+    <Key>
+      <PropertyRef Name="OdaId" />
+    </Key>
+    <Property Name="OdaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OdaTür" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TblRezs" Relationship="Self.RezervasyonveOda" FromRole="TblOda" ToRole="TblRez" />
+  </EntityType>
+  <EntityType Name="TblOtel">
+    <Key>
+      <PropertyRef Name="OtelId" />
+    </Key>
+    <Property Name="OtelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OtelAd" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TblRezs" Relationship="Self.OtelveRezervasyon" FromRole="TblOtel" ToRole="TblRez" />
+    <NavigationProperty Name="TblYönetici" Relationship="Self.YöneticiveOtel" FromRole="TblOtel" ToRole="TblYönetici" />
+  </EntityType>
+  <EntityType Name="TblRez">
+    <Key>
+      <PropertyRef Name="RezId" />
+    </Key>
+    <Property Name="RezId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KId" Type="Int32" Nullable="false" />
+    <Property Name="OtelId" Type="Int32" Nullable="false" />
+    <Property Name="OdaId" Type="Int32" Nullable="false" />
+    <Property Name="RezTarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="RezGün" Type="Int16" />
+    <NavigationProperty Name="TblKullanici" Relationship="Self.KullaniciveRezervasyon" FromRole="TblRez" ToRole="TblKullanici" />
+    <NavigationProperty Name="TblOda" Relationship="Self.RezervasyonveOda" FromRole="TblRez" ToRole="TblOda" />
+    <NavigationProperty Name="TblOtel" Relationship="Self.OtelveRezervasyon" FromRole="TblRez" ToRole="TblOtel" />
+  </EntityType>
+  <EntityType Name="TblYönetici">
+    <Key>
+      <PropertyRef Name="YId" />
+    </Key>
+    <Property Name="YId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YAd" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="YSoyad" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="YTcNo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="YSifre" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OtelId" Type="Int32" />
+    <NavigationProperty Name="TblOtel" Relationship="Self.YöneticiveOtel" FromRole="TblYönetici" ToRole="TblOtel" />
+  </EntityType>
+  <Association Name="KullaniciveRezervasyon">
+    <End Role="TblKullanici" Type="Self.TblKullanici" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblKullanici">
+        <PropertyRef Name="KId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="KId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RezervasyonveOda">
+    <End Role="TblOda" Type="Self.TblOda" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOda">
+        <PropertyRef Name="OdaId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="OdaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="OtelveRezervasyon">
+    <End Role="TblOtel" Type="Self.TblOtel" Multiplicity="1" />
+    <End Role="TblRez" Type="Self.TblRez" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOtel">
+        <PropertyRef Name="OtelId" />
+      </Principal>
+      <Dependent Role="TblRez">
+        <PropertyRef Name="OtelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="YöneticiveOtel">
+    <End Role="TblOtel" Type="Self.TblOtel" Multiplicity="0..1" />
+    <End Role="TblYönetici" Type="Self.TblYönetici" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TblOtel">
+        <PropertyRef Name="OtelId" />
+      </Principal>
+      <Dependent Role="TblYönetici">
+        <PropertyRef Name="OtelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcOtelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TblAdmins" EntityType="Self.TblAdmin" />
+    <EntitySet Name="TblKullanicis" EntityType="Self.TblKullanici" />
+    <EntitySet Name="TblOdas" EntityType="Self.TblOda" />
+    <EntitySet Name="TblOtels" EntityType="Self.TblOtel" />
+    <EntitySet Name="TblRezs" EntityType="Self.TblRez" />
+    <EntitySet Name="TblYönetici" EntityType="Self.TblYönetici" />
+    <AssociationSet Name="KullaniciveRezervasyon" Association="Self.KullaniciveRezervasyon">
+      <End Role="TblKullanici" EntitySet="TblKullanicis" />
+      <End Role="TblRez" EntitySet="TblRezs" />
+    </AssociationSet>
+    <AssociationSet Name="RezervasyonveOda" Association="Self.RezervasyonveOda">
+      <End Role="TblOda" EntitySet="TblOdas" />
+      <End Role="TblRez" EntitySet="TblRezs" />
+    </AssociationSet>
+    <AssociationSet Name="OtelveRezervasyon" Association="Self.OtelveRezervasyon">
+      <End Role="TblOtel" EntitySet="TblOtels" />
+      <End Role="TblRez" EntitySet="TblRezs" />
+    </AssociationSet>
+    <AssociationSet Name="YöneticiveOtel" Association="Self.YöneticiveOtel">
+      <End Role="TblOtel" EntitySet="TblOtels" />
+      <End Role="TblYönetici" EntitySet="TblYönetici" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(MvcOtelModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(MvcOtelModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

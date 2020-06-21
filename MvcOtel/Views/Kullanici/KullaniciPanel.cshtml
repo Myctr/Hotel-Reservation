@@ -1,0 +1,144 @@
+﻿@model IEnumerable<MvcOtel.Models.TblRez>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kullanıcı Paneli</title>
+    <link href="~/panel/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/panel/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <li>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-laugh-wink"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3" style="color:white">Kullanıcı Paneli</div>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Rezervasyonlar</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Hesap</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        @Html.ActionLink("Hesap Bilgilerini Güncelle", "Edit", "Kullanici", new { id = Model.FirstOrDefault().TblKullanici.KId }, new { @class = "collapse-item" })
+                        @Html.ActionLink("Çıkış Yap", "Exit", "Kullanici", new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@Html.DisplayFor(modelItem => Model.First().TblKullanici.KAd)</span>
+                                
+                                <img class="img-profile rounded-circle" src="~/images/user.png">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                @Html.ActionLink("Hesap Detayları", "Details", "Kullanici", new { id = Model.First().TblKullanici.KId }, new { @class = "dropdown-item" })
+                                <div class="dropdown-divider"></div>
+                                @Html.ActionLink("Çıkış Yap","Exit","Kullanici",new {@class= "dropdown-item" })
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    @Html.ActionLink("Yeni Rezervasyon", "RezOlustur", Model.First(),new { @class ="btn btn-success btn-icon-split",@style = "width:100px" })
+                    <h1>Geçmiş Rezervasyonlar</h1>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Otel Adı
+                            </th>
+                            <th>
+                                Oda Türü
+                            </th>
+                            <th>
+                                Rezervasyon Günü
+                            </th>
+                            <th>
+                                Rezervasyon Tarihi
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    
+                                    @Html.DisplayFor(modelItem => item.TblOtel.OtelAd)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TblOda.OdaTür)
+                                    
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RezGün)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RezTarih)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Rezervasyonu Sil", "RezSil", new { id = item.RezId })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Çıkış yapmak istediğinize emin misiniz?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Çıkış Yapmak için çıkış butonuna tıklayınız. Anasayfaya yönlendirileceksiniz.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Vazgeç</button>
+                            @Html.ActionLink("Çıkış", "Exit","Kullanici", new {@class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="~/panel/vendor/jquery/jquery.min.js"></script>
+        <script src="~/panel/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="~/panel/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <script src="~/panel/js/sb-admin-2.min.js"></script>
+    </div>
+</body>
+
+</html>
+
